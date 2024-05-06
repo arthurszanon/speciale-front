@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+*{
+    font-family: 'Sora', sans-serif;
+}
+
+html, body{
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0px;
+}
+
+:root{
+    --cor-01: #EB1B23; /*Vermelho*/
+    --branco: #ffffff; /*Branco*/
+    --preto: #000000; /*Preto*/
+    --cinza: #a9a9a9; /*Cinza*/
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

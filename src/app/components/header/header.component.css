@@ -1,0 +1,42 @@
+*{
+  z-index: 99;
+}
+
+.header{
+  position: sticky;
+  top: 0;
+}
+
+.formulario{
+    font-weight: 400;
+    text-align: center;
+    }
+    
+    .formulario-label{
+      margin-top: 25px;
+    }
+    
+    .botao{
+      padding-top: 15px;
+      display: flex;
+      align-content: center;
+      margin: 0 auto;
+    }
+    
+      .card-adm{
+        width: 340px;
+        margin: 0 auto;
+        padding: 40px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        background-color: #F8F7F7;
+      }
+    
+      #card-adm{
+        margin-top: 70px;
+        margin-bottom: 70px;
+      }
+
+      .logo{
+        width: 100px;
+      }

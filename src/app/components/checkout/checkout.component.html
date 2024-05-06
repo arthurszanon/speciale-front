@@ -1,0 +1,61 @@
+<div class="card flex justify-content-center">
+    <p-breadcrumb 
+        class="max-w-full" 
+        [model]="items" 
+        [home]="home" 
+        [style]="{'border': 'none', 'marginTop': '10px', 'marginBottom': '10px'}"/>
+</div>
+<div class="card-checkout">
+    <h2>Checkout</h2>
+    <form action="">
+        <div class="card flex justify-content-center margin">
+            <div class="flex flex-column gap-2">
+                <label for="username">Nome</label>
+                <input 
+                    pInputText
+                    id="username" 
+                    aria-describedby="username-help" 
+                    [(ngModel)]="texto" />
+                <small id="username-help" class="largura">
+                </small>
+            </div>
+        </div>
+        <div class="card flex justify-content-center margin">
+            <div class="flex flex-column gap-2">
+                <label for="email">E - Mail</label>
+                <input 
+                    pInputText
+                    id="email" 
+                    aria-describedby="username-help" 
+                    [(ngModel)]="texto" />
+                <small id="username-help" class="largura">
+                </small>
+            </div>
+        </div>
+        <div class="card flex justify-content-center margin">
+            <div class="flex flex-column gap-2">
+                <label for="telefone">Telefone</label>
+                <p-inputMask 
+                mask="(99) 9 9999-9999" 
+                [(ngModel)]="telefone" 
+                placeholder="(99) 9 9999-9999" 
+                [style]="{'width': '260px'}" />
+                <small id="telefone-help" class="largura">
+                </small>
+            </div>
+        </div>
+        <div class="card flex justify-content-center margin">
+            <div class="flex flex-column gap-2">
+                <label for="cep">CEP</label>
+                <p-inputMask 
+                mask="99.999-999"
+                [(ngModel)]="cep" 
+                placeholder="99.999-999" 
+                [style]="{'width': '260px'}" />
+                <small id="cep-help" class="largura">
+                </small>
+            </div>
+        </div>
+        <p-button label="Enviar" [style]="{'background':'var(--cor-01)', 'border': 'none', 'display': 'block', 'margin': '0 auto', 'marginTop': '25px',}"></p-button>
+    </form>
+</div>

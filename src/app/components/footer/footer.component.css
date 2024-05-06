@@ -1,0 +1,19 @@
+.footer{
+    background: var(--cor-01);
+    padding: 5px;
+    font-size: 12px;
+    color: var(--branco);
+}
+
+ h3{
+text-align: center;
+font-weight: 300;
+}
+
+@media screen and (min-width: 1500px) {
+    .footer{
+        padding: 7px;
+        font-size: 18px;
+        color: var(--branco);
+    }
+}

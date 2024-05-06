@@ -1,0 +1,20 @@
+<div class="product-page-01">
+    <div class="image-01" >
+        <img class="shadow-3" src="{{ product.image }}" alt="Imagem">
+    </div>
+    <div class="card-01 shadow-3">
+        <h2>{{ product.name }}</h2>
+        <h4>{{ 'R$ ' + product.price }}</h4>
+        <a class="categoria shadow-3" href="#">{{ product.category }}</a>
+        <p>{{ product.description }}</p>
+        <p-button label="Adicionar ao Carrinho" icon="pi pi-cart-plus" [style]="{'backgroundColor': 'var(--preto)', 'border':'var(--preto)', 'borderWidth':'2px', 'color': 'var(--branco)', 'marginBottom': '30px', 'fontWeight': '300'}"></p-button>
+        <div class="add-cart">
+            <p-button icon="pi pi-minus-circle" [style]="{'backgroundColor': 'var(--preto)', 'color': 'var(--branco)'}"></p-button>
+            <p-button icon="pi pi-plus-circle" [style]="{'backgroundColor': 'var(--preto)', 'color': 'var(--branco)'}"></p-button>
+        </div>
+    </div>
+</div>
+<div class="relacionados">
+    <h3>Produtos Relacionados</h3>
+     
+</div>

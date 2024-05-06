@@ -1,0 +1,83 @@
+{
+    "produtos": [
+      {
+        "id": 1,
+        "code": "f230fh0g3",
+        "name": "Camisa",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus ipsum metus, eu hendrerit risus porttitor nec. Morbi quis feugiat tortor, sit amet varius purus. ",
+        "image": "./assets/images/products/products.png",
+        "price": 65.00,
+        "category": "Camisetas",
+        "quantity": 20
+      },
+      {
+        "id": 2,
+        "code": "f230fh0g3",
+        "name": "Camisa 2",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus ipsum metus, eu hendrerit risus porttitor nec. Morbi quis feugiat tortor, sit amet varius purus. ",
+        "image": "./assets/images/products/products.png",
+        "price": 65.00,
+        "category": "Camisetas",
+        "quantity": 20
+      },
+      {
+        "id": 3,
+        "code": "f230fh0g3",
+        "name": "Camisa 3",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus ipsum metus, eu hendrerit risus porttitor nec. Morbi quis feugiat tortor, sit amet varius purus. ",
+        "image": "./assets/images/products/products.png",
+        "price": 65.00,
+        "category": "Camisetas",
+        "quantity": 20
+      },
+      {
+        "id": 4,
+        "code": "f230fh0g3",
+        "name": "Camisa 4",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus ipsum metus, eu hendrerit risus porttitor nec. Morbi quis feugiat tortor, sit amet varius purus. ",
+        "image": "./assets/images/products/products.png",
+        "price": 65.00,
+        "category": "Camisetas",
+        "quantity": 20
+      },
+      {
+        "id": 5,
+        "code": "f230fh0g3",
+        "name": "Camisa 5",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus ipsum metus, eu hendrerit risus porttitor nec. Morbi quis feugiat tortor, sit amet varius purus. ",
+        "image": "./assets/images/products/products.png",
+        "price": 65.50,
+        "category": "Camisetas",
+        "quantity": 20
+      }
+    ],
+    "categoria": [
+      {
+        "label": "MatCon",
+        "items": [
+          {
+            "label": "Camisetas",
+            "items": [
+              { "label": "Camisas Polo" },
+              { "label": "Camisetas Básicas" }
+            ]
+          },
+          { "label": "Calças" },
+          { "label": "Vestidos" }
+        ]
+      },
+      {
+        "label": "Armarinho",
+        "items": [
+          { "label": "Celulares" },
+          { "label": "Televisores",
+            "items": [
+              { "label": "Smart TVs" },
+              { "label": "LED TVs" }
+            ]
+          },
+          { "label": "Notebooks" }
+        ]
+      }
+    ]
+  }

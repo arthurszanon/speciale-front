@@ -1,0 +1,128 @@
+.product-page-01{
+    padding-top: 30px;
+    margin: 0 auto;
+    width: 100%;
+    display: block;
+}
+
+.image-01{
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.image-01 img{
+    border-radius: 20px;
+    width: 290px;
+    display: block;
+    margin: 0 auto;
+}
+
+.card-01{
+    text-align: center;
+    width: 290px;
+    padding: 30px; 
+    border-radius: 40px;
+    border-width: 2px;
+    border-color: var(--preto); 
+    border: solid;
+    background-color: #F8F7F7;
+    margin: 0 auto;
+    display: block;
+}
+
+
+.card-01 h2{
+    margin: 0 auto;
+    font-size: 35px;
+    font-weight: 400;
+    color: var(--preto);
+}
+
+.card-01 h4{
+    font-weight: 400;
+    color: var(--cor-01);
+    font-size: 20px;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 0px;
+}
+
+a{
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--cor-01);
+    color: var(--preto);
+    text-decoration: none;
+}
+
+p{
+    font-weight: 200;
+    font-size: 17px;
+    padding-top: 10px;
+}
+
+.relacionados{
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.relacionados h3{
+    font-size: 30px;
+    font-weight: 400;
+}
+
+@media screen and (min-width: 500px){
+    .product-page-01{
+        padding: 50px;
+        width: 100%;
+    }
+
+    .image-01{
+        margin-bottom: 50px;
+    }
+
+    .image-01 img{
+        border-radius: 20px;
+        width: 340px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .card-01{
+        text-align: center;
+        width: 400px;
+        padding: 30px; 
+        border-radius: 40px;
+        border-width: 2px;
+        border-color: var(--preto); 
+        border: solid;
+        background-color: #F8F7F7;
+        margin: 0 auto;
+        display: block;
+    }
+    
+}
+
+@media screen and (min-width: 1000px){
+    .product-page-01{
+        justify-content: space-between;
+        display: flex;
+    }
+
+    .image-01 img{
+        margin-top: 15px;
+    }
+}
+
+@media screen and (min-width: 1500px){
+    .product-page-01{
+        width: 1000px;
+    }
+
+    .image-01 img{
+        margin-top: 15px;
+    }
+}
