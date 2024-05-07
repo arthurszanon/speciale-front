@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '../../../services/photo.service';
+import { photo } from '../../../interfaces/photo';
+
 
 @Component({
   selector: 'app-galleria-banner',
@@ -8,10 +11,12 @@ import { GalleriaModule } from 'primeng/galleria';
     GalleriaModule,
   ],
   templateUrl: './galleria-banner.component.html',
-  styleUrl: './galleria-banner.component.css'
+  styleUrl: './galleria-banner.component.css',
+  providers: [PhotoService,]
+
 })
-export class GalleriaBannerComponent implements OnInit{
-  images: any[] | undefined;
+export class GalleriaBannerComponent implements OnInit {
+  images: photo [] = [];
 
   responsiveOptions: any[] = [
       {
@@ -31,6 +36,6 @@ export class GalleriaBannerComponent implements OnInit{
   constructor(private photoService: PhotoService) {}
 
   ngOnInit() {
-      this.photoService.getImages().then((images) => (this.images = images));
+      this.photoService.getImages().then((photo) => (this.images = photo));
   }
 }

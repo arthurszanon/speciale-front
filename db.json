@@ -1,4 +1,20 @@
 {
+    "banner": [
+      {
+        "id": 99,
+        "itemImageSrc": "./assets/images/products/produtos.png",
+        "thumbnailImageSrc": "./assets/images/products/produtos.png",
+        "alt": "Description",
+        "title": "Imagem"
+      },
+      {
+        "id": 98,
+        "itemImageSrc": "./assets/images/products/produtos.png",
+        "thumbnailImageSrc": "./assets/images/products/produtos.png",
+        "alt": "Description",
+        "title": "Imagem"
+      }
+    ],
     "produtos": [
       {
         "id": 1,
