@@ -1,12 +1,15 @@
 export interface produto {
   id?: string;
   codigo?: string;
+  nome?: string;
   descricao?: string;
+  quantidade?: number;
   tipo?: string;
   situacao?: string;
   unidade?: string;
   preco?: string;
   precoCusto?: string;
+  imagemURL?: string;
   descricaoCurta?: string;
   descricaoComplementar?: string;
   dataInclusao?: string;

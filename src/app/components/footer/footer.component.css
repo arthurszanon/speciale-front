@@ -1,8 +1,11 @@
 .footer{
-    background: var(--cor-01);
-    padding: 5px;
-    font-size: 12px;
-    color: var(--branco);
+  background: var(--cor-01);
+  padding: 5px;
+  font-size: 12px;
+  color: var(--branco);
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*width:100%;*/
 }
 
  h3{
@@ -12,8 +15,8 @@ font-weight: 300;
 
 @media screen and (min-width: 1500px) {
     .footer{
-        padding: 7px;
-        font-size: 18px;
-        color: var(--branco);
+      padding: 7px;
+      font-size: 18px;
+      color: var(--branco);
     }
 }

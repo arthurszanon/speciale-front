@@ -1,20 +1,49 @@
 <div class="product-page-01">
-    <div class="image-01" >
-        <img class="shadow-3" src="{{ product.image }}" alt="Imagem">
-    </div>
-    <div class="card-01 shadow-3">
-        <h2>{{ product.name }}</h2>
-        <h4>{{ 'R$ ' + product.price }}</h4>
-        <a class="categoria shadow-3" href="#">{{ product.category }}</a>
-        <p>{{ product.description }}</p>
-        <p-button label="Adicionar ao Carrinho" icon="pi pi-cart-plus" [style]="{'backgroundColor': 'var(--preto)', 'border':'var(--preto)', 'borderWidth':'2px', 'color': 'var(--branco)', 'marginBottom': '30px', 'fontWeight': '300'}"></p-button>
-        <div class="add-cart">
-            <p-button icon="pi pi-minus-circle" [style]="{'backgroundColor': 'var(--preto)', 'color': 'var(--branco)'}"></p-button>
-            <p-button icon="pi pi-plus-circle" [style]="{'backgroundColor': 'var(--preto)', 'color': 'var(--branco)'}"></p-button>
-        </div>
-    </div>
+  <div class="image-01" >
+      <img class="shadow-3" src="{{ product.imagemURL || '../../../assets/No-Image-Placeholder.png' }}" alt="Imagem">
+  </div>
+  <div class="card-01 shadow-3">
+      <h4>{{ product.nome }}</h4>
+      <h4>{{ 'R$ ' + product.preco }}</h4>
+      <p *ngIf="product.descricaoCurta">{{ product.descricaoCurta }}</p>
+      <div class="add-cart">
+        <p-inputNumber
+          class="quantidade-input" styleClass="quantidade-input"
+          [(ngModel)]="quantidadeProdutos"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="vertical"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+          size="1"
+        />
+      </div>
+        <p-button label="Adicionar ao Carrinho" (click)="addCarrinho()" icon="pi pi-cart-plus" [style]="{'backgroundColor': 'var(--cor-01)', 'border':'var(--preto)', 'borderWidth':'2px', 'color': 'var(--branco)', 'marginTop': '30px', 'fontWeight': '300'}"></p-button>
+  </div>
 </div>
 <div class="relacionados">
-    <h3>Produtos Relacionados</h3>
-     
+  <h3>Produtos Relacionados</h3>
+  <div class="card">
+    <p-carousel [value]="products" [numVisible]="5" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+      <ng-template let-product pTemplate="item">
+        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+          <div class="mb-3">
+            <img src="{{ product.imagemURL || '../../../assets/No-Image-Placeholder.png' }}" [alt]="product.descricao" class="w-6 shadow-2" />
+          </div>
+          <div>
+            <h4 class="mb-1">{{ product.descricao }}</h4>
+            <h6 class="mt-0 mb-3">{{ 'R$ ' + product.preco }}</h6>
+            <p-tag [value]="product.category" [style]="{'background': 'var(--preto)'}"></p-tag>
+            <div class="mt-5 flex align-items-center justify-content-center gap-2">
+              <p-button icon="pi pi-search" [rounded]="true" [routerLink]="['/product', product.id]" [style]="{'backgroundColor': 'var(--cor-01)', 'borderColor': 'var(--branco)', 'icon': '#000'}" />
+              <p-button icon="pi pi-shopping-cart" [rounded]="true" severity="secondary" [style]="{'background': 'var(--preto)', 'borderColor': 'var(--branco)'}" />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
 </div>
