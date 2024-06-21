@@ -192,12 +192,13 @@ export class HeaderComponent implements OnInit{
       created_at: new Date(),
       updated_at: new Date()
     }
+    console.log(orcamento)
     this.orcamentoService.getOrcamentoPdf(orcamento).subscribe((pdf: any) => {
       this.clearCart();
       this.cartVisible = false;
       var mediaType = 'application/pdf';
       var blob = new Blob([pdf], {type: mediaType});
-      saveAs(blob, 'orcamento.pdf');
+      saveAs(blob, `orcamento-${new Date().getTime()}.pdf`);
 
     });
   }
