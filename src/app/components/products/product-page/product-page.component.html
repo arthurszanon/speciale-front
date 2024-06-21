@@ -37,7 +37,7 @@
             <h6 class="mt-0 mb-3">{{ product.preco | currency: 'BRL' }}</h6>
             <p-tag [value]="product.category" [style]="{'background': 'var(--preto)'}"></p-tag>
             <div class="mt-5 flex align-items-center justify-content-center gap-2">
-              <p-button icon="pi pi-search" [rounded]="true" [routerLink]="['/product', product.id]" [style]="{'backgroundColor': 'var(--cor-01)', 'borderColor': 'var(--branco)', 'icon': '#000'}" />
+              <p-button icon="pi pi-search" [rounded]="true" [routerLink]="['/produto', product.id]" [style]="{'backgroundColor': 'var(--cor-01)', 'borderColor': 'var(--branco)', 'icon': '#000'}" />
               <p-button icon="pi pi-shopping-cart" [rounded]="true" severity="secondary" [style]="{'background': 'var(--preto)', 'borderColor': 'var(--branco)'}" />
             </div>
           </div>

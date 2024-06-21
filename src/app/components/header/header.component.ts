@@ -40,23 +40,28 @@ export class HeaderComponent implements OnInit{
     {
       'label': 'Home',
       'icon': 'pi pi-fw pi-home',
+      'routerLink': '/'
     },
     {
       'label': 'Produtos',
       'icon': 'pi pi-fw pi-shopping-cart',
+      'routerLink': '/produtos'
     },
     {
       'label': 'categorias',
       'icon': 'pi pi-fw pi-tags',
-      'items': []
+      'items': [],
+      'routerLink': '/produtos',
     },
     {
       'label': 'login',
       'icon': 'pi pi-fw pi-user',
+      'routerLink': '/login'
     },
     {
       'label': 'cadastro',
       'icon': 'pi pi-fw pi-user-plus',
+      'routerLink': '/cadastro'
     },
   ];
   cartVisible: boolean = false;
@@ -77,6 +82,8 @@ export class HeaderComponent implements OnInit{
         });
       });
     }
+
+    console.log(this.items)
 
     if(localStorage.getItem('cart')) {
       this.products = JSON.parse(localStorage.getItem('cart') || '{}');

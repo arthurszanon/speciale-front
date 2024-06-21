@@ -46,6 +46,8 @@ export class CategoriaService {
       return categorias.map(categoria => ({
         id: categoria.id.toString(),
         label: categoria.descricao,
+        // routerLink: '/produtos/' + categoria.id,
+        routerLink: ['/produtos', categoria.id],
         items: categoriasPorPai.has(categoria.id) ? construirMenu(categoriasPorPai.get(categoria.id) || []) : []
       }));
     }

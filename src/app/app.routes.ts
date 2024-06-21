@@ -9,11 +9,11 @@ export const routes: Routes = [
         component: HomeComponent
     },
     {
-        path:"product/:id",
+        path:"produto/:id",
         component: ProductPageComponent
     },
     {
-        path:'checkout', 
+        path:'checkout',
         component: CheckoutComponent
     }
 ];
