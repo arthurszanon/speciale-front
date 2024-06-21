@@ -38,6 +38,8 @@ export class ProductPageComponent implements OnInit{
   carrinhoPayload: any;
   quantidadeProdutos: number = 1;
 
+  isLogged: boolean = localStorage.getItem('logged') === 'true'
+
   responsiveOptions = [
     {
       breakpoint: '1199px',

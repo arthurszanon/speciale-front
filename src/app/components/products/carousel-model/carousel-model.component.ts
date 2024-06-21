@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { produto } from '../../../interfaces/produto';
 import { ProdutosService } from '../../../services/produtos.service';
 import { Router, RouterLink, RouterModule, Routes } from '@angular/router';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { Router, RouterLink, RouterModule, Routes } from '@angular/router';
     TagModule,
     ButtonModule,
     RouterModule,
+    TooltipModule,
   ],
   templateUrl: './carousel-model.component.html',
   styleUrl: './carousel-model.component.css',
@@ -25,6 +27,8 @@ export class CarouselModelComponent implements OnInit{
   products: produto[] = [];
 
   responsiveOptions: any[] | undefined;
+
+  isLogged: boolean = localStorage.getItem('logged') === 'true'
 
   constructor(private produtosService: ProdutosService) {}
 

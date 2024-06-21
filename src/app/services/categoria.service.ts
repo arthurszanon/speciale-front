@@ -27,6 +27,8 @@ export class CategoriaService {
   categoriasParaMenu(categorias: categorias[]): MenuItem[] {
     const menu: MenuItem[] = [];
 
+    console.log(categorias)
+
     // Mapear categorias por id de categoria pai
     const categoriasPorPai: Map<number, categorias[]> = new Map();
 

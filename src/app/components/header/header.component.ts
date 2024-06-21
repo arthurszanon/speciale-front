@@ -14,6 +14,8 @@ import {DataViewModule} from 'primeng/dataview';
 import {produto} from '../../interfaces/produto';
 import {ButtonModule} from 'primeng/button';
 import {ProdutosService} from '../../services/produtos.service';
+import {FormsModule} from '@angular/forms';
+import {MessageModule} from 'primeng/message';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +31,8 @@ import {ProdutosService} from '../../services/produtos.service';
     DialogModule,
     DataViewModule,
     ButtonModule,
+    FormsModule,
+    MessageModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -40,50 +44,53 @@ export class HeaderComponent implements OnInit{
     {
       'label': 'Home',
       'icon': 'pi pi-fw pi-home',
-      'routerLink': '/'
+      'routerLink': ['/']
     },
     {
-      'label': 'Produtos',
+      'label': 'produtos',
       'icon': 'pi pi-fw pi-shopping-cart',
-      'routerLink': '/produtos'
-    },
-    {
-      'label': 'categorias',
-      'icon': 'pi pi-fw pi-tags',
       'items': [],
-      'routerLink': '/produtos',
-    },
-    {
-      'label': 'login',
-      'icon': 'pi pi-fw pi-user',
-      'routerLink': '/login'
-    },
-    {
-      'label': 'cadastro',
-      'icon': 'pi pi-fw pi-user-plus',
-      'routerLink': '/cadastro'
+      'routerLink': ['/produtos'],
     },
   ];
   cartVisible: boolean = false;
+  loginVisible: boolean = false;
+  registerVisible: boolean = false;
   products: any[] = [];
+  loginError: boolean = false;
+
+  loginPayload = {
+    email: '',
+    senha: ''
+  }
+
+  registerPayload = {
+    nome: '',
+
+    email: '',
+    cep: '',
+    telefone: '',
+    senha: '',
+    confirmarSenha: ''
+  }
+
+  isLogged = localStorage.getItem('logged') === 'true';
 
   constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService) {}
 
   ngOnInit() {
     if(localStorage.getItem('categoriasMenu')){
-      this.items[2].items = JSON.parse(localStorage.getItem('categoriasMenu') || '{}');
+      this.items[1].items = JSON.parse(localStorage.getItem('categoriasMenu') || '{}');
     }else{
       this.categoriaService.getCategorias(1, 100).subscribe(categoriasPrimeira => {
         const categoriasPrimeiraPagina = categoriasPrimeira.data
         this.categoriaService.getCategorias(2, 100).subscribe(categoriasSegunda => {
           this.categorias = categoriasPrimeiraPagina.concat(categoriasSegunda.data)
-          this.items[2].items = this.categoriaService.categoriasParaMenu(this.categorias)
-          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[2].items))
+          this.items[1].items = this.categoriaService.categoriasParaMenu(this.categorias)
+          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[1].items))
         });
       });
     }
-
-    console.log(this.items)
 
     if(localStorage.getItem('cart')) {
       this.products = JSON.parse(localStorage.getItem('cart') || '{}');
@@ -99,5 +106,69 @@ export class HeaderComponent implements OnInit{
    this.produtoService.clearCart();
    this.products = this.produtoService.getCart();
    this.cartVisible = false;
+  }
+
+  login(){
+    if(!localStorage.getItem('users')) {
+      this.loginError = true;
+      return;
+    }
+    const users = JSON.parse(localStorage.getItem('users') || '{}')
+    let user = users.find((user: any) => user.email === this.loginPayload.email)
+    if(user && user.senha === this.loginPayload.senha) {
+      this.loginVisible = false;
+      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('logged', 'true')
+      this.isLogged = true;
+    }else{
+      this.loginError = true;
+    }
+  }
+
+  register(){
+    if(!localStorage.getItem('users')) {
+      localStorage.setItem('users', '[]')
+    }
+    const users = JSON.parse(localStorage.getItem('users') || '{}')
+    if(this.registerPayload.senha === this.registerPayload.confirmarSenha) {
+      users.push(this.registerPayload)
+      localStorage.setItem('users', JSON.stringify(users))
+      localStorage.setItem('user', JSON.stringify(this.registerPayload))
+      localStorage.setItem('logged', 'true')
+      this.registerVisible = false;
+    }
+  }
+
+  registrarClick() {
+    this.loginVisible = false;
+    this.registerVisible = true;
+  }
+
+  loginClick() {
+    this.registerVisible = false;
+    this.loginError = false;
+    if (this.isLogged) {
+      this.isLogged =  localStorage.getItem('logged') === 'true';
+      this.registerPayload = JSON.parse(localStorage.getItem('user') || '{}')
+      this.registerVisible = true;
+    }else{
+      this.loginVisible = true;
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('logged');
+    this.registerPayload = {
+      nome: '',
+      email: '',
+      cep: '',
+      telefone: '',
+      senha: '',
+      confirmarSenha: ''
+    }
+    this.isLogged = false;
+    this.registerVisible = false;
+    this.loginVisible = true;
   }
 }

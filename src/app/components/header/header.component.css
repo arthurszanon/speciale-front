@@ -7,6 +7,16 @@
   top: 0;
 }
 
+.logged-in{
+  border-color: green !important;
+  color: green !important;
+}
+
+.logged-out{
+  border-color: red !important;
+  color: red !important;
+}
+
 .formulario{
     font-weight: 400;
     text-align: center;
