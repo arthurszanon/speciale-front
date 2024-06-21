@@ -5,8 +5,60 @@
                 <img src="./assets/logo.png"  class="logo" />
             </a>
         </ng-template>
-        <ng-template pTemplate="end">
-            <input type="text" pInputText placeholder="Procurar" class="w-full p-2 border-round-xl border-1" />
+        <ng-template pTemplate="end" style="display: flex; align-items: center">
+          <div style="display:flex; align-items:center">
+            <i class="pi pi-shopping-cart" style="font-size: 25px; margin-right: 20px; cursor: pointer;" pBadge [value]="products.length" severity="danger" (click)="showDialog()"></i>
+            <p-iconField iconPosition="left">
+              <p-inputIcon styleClass="pi pi-search" />
+              <input type="text" pInputText placeholder="Produtos..." style="height: 35px"/>
+            </p-iconField>
+            <i class="pi pi-user" style="font-size: 25px; margin-left: 20px; border: 2px solid #4B5563; border-radius: 50%; padding: 2px"></i>
+          </div>
         </ng-template>
     </p-menubar>
+
+  <p-dialog header="Header" [(visible)]="cartVisible" [modal]="true" [style]="{ width: '40rem', height:'100vh' }"
+            [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" position="right" [draggable]="false" [resizable]="false" [dismissableMask]="true">
+    <ng-template pTemplate="header">
+      <div class="inline-flex align-items-center justify-content-center gap-2">
+        <h2 class="font-bold white-space-nowrap" >Seu Carrinho</h2>
+      </div>
+    </ng-template>
+    <div [style]="{marginTop:'20px'}">
+      <div class="card" style="border: 1px solid black; border-radius: 10px; overflow: hidden">
+        <p-dataView #dv [value]="products">
+          <ng-template pTemplate="list" let-products>
+            <div class="grid grid-nogutter">
+              <div class="col-12" *ngFor="let item of products; let first = first">
+                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                  <img style="width: 80px" [src]="item.imagemURL || '../../../assets/No-Image-Placeholder.png'" [alt]="item.nome" />
+                  <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                      <div class="text-l font-bold text-900">{{ item.nome }}</div>
+                      <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <span class="font-semibold">Quantidade:</span>
+                                            <span>{{ item.quantidade + (item.quantidade > 1 ? ' unidades' : ' unidade') }}</span>
+                                        </span>
+                      </div>
+                    </div>
+                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                      <span class="text-l font-semibold">{{ item.preco | currency: 'BRL' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+    </div>
+    <ng-template pTemplate="footer" style="margin-top:20px">
+      <div class="flex justify-content-between" [style]="{marginTop:'20px'}">
+        <p-button icon="pi pi-times" label="Limpar Carrinho" pAutoFocus [autofocus]="true"
+                  severity="danger" (click)="clearCart()"></p-button>
+        <a href="/checkout" icon="pi pi-check" rel="noopener noreferrer" class="p-button font-bold p-button-success" style="text-decoration: none;"><i style="margin-right: 10px;" class="pi pi-check"></i>   Finalizar Orçamento</a>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>

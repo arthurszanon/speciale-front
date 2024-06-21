@@ -77,10 +77,10 @@ export class ProductPageComponent implements OnInit{
       nome: this.product.nome,
       descricao: this.product.descricao,
       preco: this.product.preco,
-      quantidade: this.quantidadeProdutos
+      quantidade: this.quantidadeProdutos,
+      imagemURL: this.product.imagemURL
     }
     this.produtosService.addToCart(this.carrinhoPayload);
-    console.log(this.produtosService.getCart());
   }
 
 

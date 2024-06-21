@@ -5,6 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoriaService } from '../../services/categoria.service';
 import { categorias } from '../../interfaces/categorias';
 import {MenuItem} from 'primeng/api';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
+import {InputTextModule} from 'primeng/inputtext';
+import {BadgeModule} from 'primeng/badge';
+import {DialogModule} from 'primeng/dialog';
+import {DataViewModule} from 'primeng/dataview';
+import {produto} from '../../interfaces/produto';
+import {ButtonModule} from 'primeng/button';
+import {ProdutosService} from '../../services/produtos.service';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +22,17 @@ import {MenuItem} from 'primeng/api';
     MenubarModule,
     CommonModule,
     HttpClientModule,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+    BadgeModule,
+    DialogModule,
+    DataViewModule,
+    ButtonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  providers: [ CategoriaService ]
+  providers: [ CategoriaService, ProdutosService ]
 })
 export class HeaderComponent implements OnInit{
   categorias: categorias[] = [];
@@ -43,7 +59,10 @@ export class HeaderComponent implements OnInit{
       'icon': 'pi pi-fw pi-user-plus',
     },
   ];
-  constructor (private categoriaService: CategoriaService) {}
+  cartVisible: boolean = false;
+  products: any[] = [];
+
+  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService) {}
 
   ngOnInit() {
     if(localStorage.getItem('categoriasMenu')){
@@ -58,5 +77,20 @@ export class HeaderComponent implements OnInit{
         });
       });
     }
+
+    if(localStorage.getItem('cart')) {
+      this.products = JSON.parse(localStorage.getItem('cart') || '{}');
+    }
+  }
+
+  showDialog() {
+    this.products = this.produtoService.getCart();
+    this.cartVisible = true;
+  }
+
+  clearCart() {
+   this.produtoService.clearCart();
+   this.products = this.produtoService.getCart();
+   this.cartVisible = false;
   }
 }
