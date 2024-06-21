@@ -1,1 +1,27 @@
-<p>products-list-page works!</p>
+<div class="produtos-page">
+  <div class="categorias-sidenav">
+    <div class="categorias-sidenav-menu">
+      <h2 style="text-align: center">Navegue Por <br> Categoria</h2>
+      <p-panelMenu [model]="items" [style]="{'width':'250px'}"></p-panelMenu>
+    </div>
+  </div>
+  <div class="produtos-container">
+    <h1>{{categoria?.descricao}}</h1>
+    <div class="produtos-cards" >
+      <p-card *ngFor="let produto of produtos" class="produto-card" [header]="produto.nome" [subheader]="isLogged ? ((produto.preco | currency:'BRL') || '') : ''" [style]="{ width: '300px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" [src]="produto.imagemURL || '../../../assets/No-Image-Placeholder.png'" />
+        </ng-template>
+        <p>
+          {{produto.descricaoCurta}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1" style="width:100%; display:flex; justify-content:center">
+            <p-button icon="pi pi-search" [rounded]="true" [routerLink]="['/produto', produto.id]" [style]="{'backgroundColor': 'var(--cor-01)', 'borderColor': 'var(--branco)', 'icon': '#000'}" />
+            <p-button icon="pi pi-shopping-cart" [rounded]="true" severity="secondary" [style]="{'background': 'var(--preto)', 'borderColor': 'var(--branco)'}" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</div>
