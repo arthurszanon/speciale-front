@@ -16,6 +16,9 @@ import {ButtonModule} from 'primeng/button';
 import {ProdutosService} from '../../services/produtos.service';
 import {FormsModule} from '@angular/forms';
 import {MessageModule} from 'primeng/message';
+import {AutoFocusModule} from 'primeng/autofocus';
+import {OrcamentoService} from '../../services/orcamento.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-header',
@@ -33,10 +36,11 @@ import {MessageModule} from 'primeng/message';
     ButtonModule,
     FormsModule,
     MessageModule,
+    AutoFocusModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  providers: [ CategoriaService, ProdutosService ]
+  providers: [ CategoriaService, ProdutosService, OrcamentoService ]
 })
 export class HeaderComponent implements OnInit{
   categorias: categorias[] = [];
@@ -76,7 +80,7 @@ export class HeaderComponent implements OnInit{
 
   isLogged = localStorage.getItem('logged') === 'true';
 
-  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService) {}
+  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService, private orcamentoService: OrcamentoService) {}
 
   ngOnInit() {
     if(localStorage.getItem('categoriasMenu')){
@@ -170,5 +174,31 @@ export class HeaderComponent implements OnInit{
     this.isLogged = false;
     this.registerVisible = false;
     this.loginVisible = true;
+  }
+
+  enviarOrcamento() {
+    if(!this.isLogged){
+      this.loginClick();
+      return
+    }
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+    const orcamento = {
+      nome: user.nome,
+      numeroTelefone: user.telefone,
+      produtos: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') || '{}') : [],
+      status: 'pendente',
+      created_at: new Date(),
+      updated_at: new Date()
+    }
+    this.orcamentoService.getOrcamentoPdf(orcamento).subscribe((pdf: any) => {
+      this.clearCart();
+      this.cartVisible = false;
+      var mediaType = 'application/pdf';
+      var blob = new Blob([pdf], {type: mediaType});
+      saveAs(blob, 'orcamento.pdf');
+
+    });
   }
 }
