@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
-import { produtos } from '../../../interfaces/produtos';
+import { produto } from '../../../interfaces/produto';
 import { ProdutosService } from '../../../services/produtos.service';
 import { Router, RouterLink, RouterModule, Routes } from '@angular/router';
 
@@ -21,16 +21,17 @@ import { Router, RouterLink, RouterModule, Routes } from '@angular/router';
   providers:[ProdutosService, RouterLink, Router]
 })
 export class CarouselModelComponent implements OnInit{
-  
-  products: produtos[] = [];
+
+  products: produto[] = [];
 
   responsiveOptions: any[] | undefined;
 
   constructor(private produtosService: ProdutosService) {}
 
   ngOnInit() {
-    this.produtosService.list()
-    .subscribe(dados => this.products = dados);
+    this.produtosService.getProdutos().subscribe(produtos => {
+      this.products = produtos.data
+    });
 
 
       this.responsiveOptions = [

@@ -1,4 +1,7 @@
 export interface categorias{
-    label: string;
-    items:  Array<categorias>;
+  id: number;
+  descricao: string;
+  categoriaPai: {
+    id: number;
+  };
 }

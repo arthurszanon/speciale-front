@@ -33,8 +33,8 @@ export class CheckoutComponent implements OnInit {
 
     ngOnInit() {
         this.items = [
-            { label: 'Electronics' }, 
-            { label: 'Computer' }, 
+            { label: 'Electronics' },
+            { label: 'Computer' },
             { label: 'Accessories' },
         ];
 
