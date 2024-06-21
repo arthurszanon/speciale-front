@@ -59,7 +59,7 @@
         <p-button icon="pi pi-times" label="Limpar Carrinho"
                   severity="danger" (click)="clearCart()"></p-button>
         <p-button icon="pi pi-check" label="Finalizar Orçamento" pAutoFocus [autofocus]="true"
-                  severity="success" (click)="enviarOrcamento()"></p-button>
+                  severity="success" (click)="enviarOrcamento()" [loading]="orcamentoLoading"></p-button>
 <!--        <a href="/checkout" icon="pi pi-check" rel="noopener noreferrer" class="p-button font-bold p-button-success" style="text-decoration: none;"><i style="margin-right: 10px;" class="pi pi-check"></i>   Finalizar Orçamento</a>-->
       </div>
     </ng-template>

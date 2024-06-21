@@ -78,6 +78,8 @@ export class HeaderComponent implements OnInit{
     confirmarSenha: ''
   }
 
+  orcamentoLoading: boolean = false;
+
   isLogged = localStorage.getItem('logged') === 'true';
 
   constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService, private orcamentoService: OrcamentoService) {}
@@ -192,14 +194,17 @@ export class HeaderComponent implements OnInit{
       created_at: new Date(),
       updated_at: new Date()
     }
-    console.log(orcamento)
+    this.orcamentoLoading = true;
     this.orcamentoService.getOrcamentoPdf(orcamento).subscribe((pdf: any) => {
+      this.orcamentoLoading = false;
       this.clearCart();
       this.cartVisible = false;
       var mediaType = 'application/pdf';
       var blob = new Blob([pdf], {type: mediaType});
       saveAs(blob, `orcamento-${new Date().getTime()}.pdf`);
 
+    }, (error) => {
+      this.orcamentoLoading = false;
     });
   }
 }
