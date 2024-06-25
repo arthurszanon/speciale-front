@@ -8,7 +8,8 @@ import {ProdutosService} from '../../../services/produtos.service';
 import {ActivatedRoute} from '@angular/router';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
-import {CurrencyPipe, NgForOf} from '@angular/common';
+import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-products-list-page',
@@ -18,7 +19,9 @@ import {CurrencyPipe, NgForOf} from '@angular/common';
     CardModule,
     ButtonModule,
     NgForOf,
-    CurrencyPipe
+    CurrencyPipe,
+    NgIf,
+    ProgressSpinnerModule
   ],
   providers: [CategoriaService, ProdutosService],
   templateUrl: './products-list-page.component.html',
@@ -32,7 +35,12 @@ export class ProductsListPageComponent {
   categoria: any;
   produtos: produto[] = [];
 
+  carrinhoPayload: any;
+  quantidadeProdutos: number = 1;
+
   isLogged: boolean = localStorage.getItem('logged') === 'true'
+
+  loading: boolean = true;
 
   constructor(private categoriaService: CategoriaService, private produtosService: ProdutosService, private route: ActivatedRoute) {
   }
@@ -52,10 +60,19 @@ export class ProductsListPageComponent {
     }
 
     this.route.params.subscribe(params => {
+      this.loading = true;
       this.categoria = params['categoria'];
       if(this.categoria){
         this.produtosService.getProdutosByCategoria(this.categoria).subscribe(produtos => {
           this.produtos = produtos.data;
+          this.loading = false;
+          this.produtos.map(produto => {
+            if(produto.nome){
+              produto.nome = produto.nome?.length > 32 ? produto.nome.substring(0, 20) + '...' : produto.nome;
+              return produto;
+            }
+            return produto;
+          });
         });
         this.categoriaService.getCategoriaById(params['categoria']).subscribe(categoria => {
           this.categoria = categoria.data;
@@ -63,6 +80,7 @@ export class ProductsListPageComponent {
       }else{
         this.produtosService.getProdutos().subscribe(produtos => {
           this.produtos = produtos.data;
+          this.loading = false;
           this.produtos.map(produto => {
             if(produto.nome){
               produto.nome = produto.nome?.length > 32 ? produto.nome.substring(0, 20) + '...' : produto.nome;
@@ -77,5 +95,17 @@ export class ProductsListPageComponent {
       }
     });
 
+  }
+
+  addCarrinho(product: produto) {
+    this.carrinhoPayload = {
+      id: product.id,
+      nome: product.nome,
+      descricao: product.descricao,
+      preco: product.preco,
+      quantidade: this.quantidadeProdutos,
+      imagemURL: product.imagemURL
+    }
+    this.produtosService.addToCart(this.carrinhoPayload);
   }
 }

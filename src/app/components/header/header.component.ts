@@ -95,14 +95,14 @@ export class HeaderComponent implements OnInit{
 
   ngOnInit() {
     if(localStorage.getItem('categoriasMenu')){
-      this.items[1].items = JSON.parse(localStorage.getItem('categoriasMenu') || '{}');
+      this.items[0].items = JSON.parse(localStorage.getItem('categoriasMenu') || '{}');
     }else{
       this.categoriaService.getCategorias(1, 100).subscribe(categoriasPrimeira => {
         const categoriasPrimeiraPagina = categoriasPrimeira.data
         this.categoriaService.getCategorias(2, 100).subscribe(categoriasSegunda => {
           this.categorias = categoriasPrimeiraPagina.concat(categoriasSegunda.data)
-          this.items[1].items = this.categoriaService.categoriasParaMenu(this.categorias)
-          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[1].items))
+          this.items[0].items = this.categoriaService.categoriasParaMenu(this.categorias)
+          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[0].items))
         });
       });
     }
