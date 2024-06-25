@@ -20,6 +20,7 @@ import { BuscarComponent } from "./buscar/buscar.component";
 import { LoginComponent } from './login/login.component';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {OrcamentoService} from '../../services/orcamento.service';
+import {saveAs} from 'file-saver';
 
 @Component({
     selector: 'app-header',
@@ -47,6 +48,9 @@ import {OrcamentoService} from '../../services/orcamento.service';
 })
 export class HeaderComponent implements OnInit{
   categorias: categorias[] = [];
+
+  orcamentoLoading: boolean = false;
+
   items: MenuItem[] = [
     {
       'label': 'Produtos',
@@ -87,7 +91,7 @@ export class HeaderComponent implements OnInit{
 
   isLogged = localStorage.getItem('logged') === 'true';
 
-  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService) {}
+  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService, private orcamentoService: OrcamentoService) {}
 
   ngOnInit() {
     if(localStorage.getItem('categoriasMenu')){
@@ -181,5 +185,35 @@ export class HeaderComponent implements OnInit{
     this.isLogged = false;
     this.registerVisible = false;
     this.loginVisible = true;
+  }
+
+  enviarOrcamento() {
+    if(!this.isLogged){
+      this.loginClick();
+      return
+    }
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+    const orcamento = {
+      nome: user.nome,
+      numeroTelefone: user.telefone,
+      produtos: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') || '{}') : [],
+      status: 'pendente',
+      created_at: new Date(),
+      updated_at: new Date()
+    }
+    this.orcamentoLoading = true;
+    this.orcamentoService.getOrcamentoPdf(orcamento).subscribe((pdf: any) => {
+      this.orcamentoLoading = false;
+      this.clearCart();
+      this.cartVisible = false;
+      var mediaType = 'application/pdf';
+      var blob = new Blob([pdf], {type: mediaType});
+      saveAs(blob, `orcamento-${new Date().getTime()}.pdf`);
+
+    }, (error) => {
+      this.orcamentoLoading = false;
+    });
   }
 }
