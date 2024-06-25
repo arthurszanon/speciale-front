@@ -16,34 +16,41 @@ import {ButtonModule} from 'primeng/button';
 import {ProdutosService} from '../../services/produtos.service';
 import {FormsModule} from '@angular/forms';
 import {MessageModule} from 'primeng/message';
+import { BuscarComponent } from "./buscar/buscar.component";
+import { LoginComponent } from './login/login.component';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {OrcamentoService} from '../../services/orcamento.service';
 import {saveAs} from 'file-saver';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    MenubarModule,
-    CommonModule,
-    HttpClientModule,
-    IconFieldModule,
-    InputIconModule,
-    InputTextModule,
-    BadgeModule,
-    DialogModule,
-    DataViewModule,
-    ButtonModule,
-    FormsModule,
-    MessageModule,
-    AutoFocusModule,
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
-  providers: [ CategoriaService, ProdutosService, OrcamentoService ]
+    selector: 'app-header',
+    standalone: true,
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css',
+    providers: [CategoriaService, ProdutosService, OrcamentoService],
+    imports: [
+        MenubarModule,
+        CommonModule,
+        HttpClientModule,
+        IconFieldModule,
+        InputIconModule,
+        InputTextModule,
+        BadgeModule,
+        DialogModule,
+        DataViewModule,
+        ButtonModule,
+        FormsModule,
+        MessageModule,
+        BuscarComponent,
+        LoginComponent,
+        AutoFocusModule,
+    ]
 })
 export class HeaderComponent implements OnInit{
   categorias: categorias[] = [];
+
+  orcamentoLoading: boolean = false;
+
   items: MenuItem[] = [
     {
       'label': 'Home',
@@ -54,6 +61,16 @@ export class HeaderComponent implements OnInit{
       'label': 'produtos',
       'icon': 'pi pi-fw pi-shopping-cart',
       'routerLink': ['/produtos'],
+    },
+    {
+      'label': 'Login',
+      'items': [],
+      'routerLink': ['/login'],
+    },
+    {
+      'label': 'Cadastrar',
+      'items': [],
+      'routerLink': ['/cadastrar'],
     },
   ];
   cartVisible: boolean = false;
@@ -76,8 +93,6 @@ export class HeaderComponent implements OnInit{
     senha: '',
     confirmarSenha: ''
   }
-
-  orcamentoLoading: boolean = false;
 
   isLogged = localStorage.getItem('logged') === 'true';
 

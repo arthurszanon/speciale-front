@@ -1,5 +1,5 @@
 *{
-  z-index: 99;
+  z-index: 999;
 }
 
 .header{
@@ -49,4 +49,9 @@
 
       .logo{
         width: 100px;
+      }
+
+      h2{
+        font-family: 'Sora';
+
       }

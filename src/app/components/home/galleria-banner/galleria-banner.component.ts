@@ -2,7 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '../../../services/photo.service';
 import { photo } from '../../../interfaces/photo';
-
+import { photo2 } from '../../../interfaces/photo2';
+import { Photo2Service } from '../../../services/photo2.service';
 
 @Component({
   selector: 'app-galleria-banner',
@@ -12,15 +13,16 @@ import { photo } from '../../../interfaces/photo';
   ],
   templateUrl: './galleria-banner.component.html',
   styleUrl: './galleria-banner.component.css',
-  providers: [PhotoService,]
+  providers: [PhotoService, Photo2Service]
 
 })
 export class GalleriaBannerComponent implements OnInit {
   images: photo [] = [];
+  images2: photo2 [] = [];
 
   responsiveOptions: any[] = [
       {
-          breakpoint: '1024px',
+          breakpoint: '1024 px',
           numVisible: 5
       },
       {
@@ -33,9 +35,10 @@ export class GalleriaBannerComponent implements OnInit {
       }
   ];
 
-  constructor(private photoService: PhotoService) {}
+  constructor(private photoService: PhotoService, private photo2Service: Photo2Service) {}
 
   ngOnInit() {
       this.photoService.getImages().then((photo) => (this.images = photo));
+      this.photo2Service.getImages().then((photo2) => (this.images2 = photo2));
   }
 }

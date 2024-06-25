@@ -1,0 +1,9 @@
+<div class="card flex justify-content-center">
+    <p-button (click)="showDialog()" icon="pi pi-search" label="" ngClass="procurar" [style]="{'backgroundColor':'transparent', 'color':'#222222', 'borderColor':'transparent'}" />
+    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <p-iconField iconPosition="left">
+            <p-inputIcon styleClass="pi pi-search" />
+            <input type="text" pInputText placeholder="Buscar..." style="height: 35px; margin-top: 15px; margin-bottom: 15px"/>
+          </p-iconField>
+    </p-dialog>
+</div>

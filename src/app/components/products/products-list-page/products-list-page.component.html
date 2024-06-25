@@ -10,7 +10,7 @@
     <div class="produtos-cards" >
       <p-card *ngFor="let produto of produtos" class="produto-card" [header]="produto.nome" [subheader]="isLogged ? ((produto.preco | currency:'BRL') || '') : ''" [style]="{ width: '300px' }">
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="produto.imagemURL || '../../../assets/No-Image-Placeholder.png'" />
+          <img alt="Card" [src]="produto.imagemURL || '../../../assets/No-Image-Placeholder.png'" [pTooltip]="produto.nome"/>
         </ng-template>
         <p>
           {{produto.descricaoCurta}}
@@ -18,10 +18,14 @@
         <ng-template pTemplate="footer">
           <div class="flex gap-3 mt-1" style="width:100%; display:flex; justify-content:center">
             <p-button icon="pi pi-search" [rounded]="true" [routerLink]="['/produto', produto.id]" [style]="{'backgroundColor': 'var(--cor-01)', 'borderColor': 'var(--branco)', 'icon': '#000'}" />
-            <p-button icon="pi pi-shopping-cart" [rounded]="true" severity="secondary" [style]="{'background': 'var(--preto)', 'borderColor': 'var(--branco)'}" />
+            <p-button icon="pi pi-shopping-cart"  (onClick)="addCarrinho(produto)" [rounded]="true" severity="secondary" [style]="{'background': 'var(--preto)', 'borderColor': 'var(--branco)'}" />
           </div>
         </ng-template>
       </p-card>
     </div>
+  </div>
+
+  <div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner></p-progressSpinner>
   </div>
 </div>

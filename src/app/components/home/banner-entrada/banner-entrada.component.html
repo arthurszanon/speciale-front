@@ -1,20 +1,38 @@
 <section class="card-inicial">
-    <div>
-        <div  class="card-inicial-1 shadow-7">
-            <h4 >Algum Título</h4>
-            <h3>Alguma descrição</h3>
-            <div class="botao">
-                <p-button label="Vamo que vamo"  [style]="{backgroundColor:'var(--branco)', color:'var(--preto)'}"></p-button>
-            </div>
+    <div class="margem">
+        <div class="card flex justify-content-center">
+            <a routerLink="/checkout">
+                <p-image 
+                src="/assets/images/home/6.jpg"
+                alt="Image"
+                width="300"
+                ngClass="imagem"
+                 />
+            </a>
         </div>
     </div>
-    <div >
-        <div class="card-inicial-1 shadow-7">
-            <h4 >Algum Título</h4>
-            <h3>Alguma descrição</h3>
-            <div class="botao">
-                <p-button label="Vamo que vamo" [style]="{backgroundColor:'var(--branco)', color:'var(--preto)'}"></p-button>
-            </div>
+    <div class="margem">
+        <div class="card flex justify-content-center">
+            <a routerLink="/checkout">
+                <p-image 
+                src="/assets/images/home/5.jpg"
+                alt="Image"
+                width="300"
+                ngClass="imagem"
+                 />
+            </a>
+        </div>
+    </div>
+    <div class="margem">
+        <div class="card flex justify-content-center">
+            <a routerLink="/checkout">
+                <p-image 
+                src="/assets/images/home/4.jpg"
+                alt="Image"
+                width="300"
+                [ngClass]="{'imagem': 'true'}"
+                 />
+            </a>
         </div>
     </div>
 </section>
