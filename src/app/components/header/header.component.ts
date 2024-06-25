@@ -53,7 +53,6 @@ export class HeaderComponent implements OnInit{
     {
       'label': 'produtos',
       'icon': 'pi pi-fw pi-shopping-cart',
-      'items': [],
       'routerLink': ['/produtos'],
     },
   ];
@@ -85,18 +84,18 @@ export class HeaderComponent implements OnInit{
   constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService, private orcamentoService: OrcamentoService) {}
 
   ngOnInit() {
-    if(localStorage.getItem('categoriasMenu')){
-      this.items[1].items = JSON.parse(localStorage.getItem('categoriasMenu') || '{}');
-    }else{
-      this.categoriaService.getCategorias(1, 100).subscribe(categoriasPrimeira => {
-        const categoriasPrimeiraPagina = categoriasPrimeira.data
-        this.categoriaService.getCategorias(2, 100).subscribe(categoriasSegunda => {
-          this.categorias = categoriasPrimeiraPagina.concat(categoriasSegunda.data)
-          this.items[1].items = this.categoriaService.categoriasParaMenu(this.categorias)
-          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[1].items))
-        });
-      });
-    }
+    // if(localStorage.getItem('categoriasMenu')){
+    //   this.items[1].items = JSON.parse(localStorage.getItem('categoriasMenu') || '{}');
+    // }else{
+    //   this.categoriaService.getCategorias(1, 100).subscribe(categoriasPrimeira => {
+    //     const categoriasPrimeiraPagina = categoriasPrimeira.data
+    //     this.categoriaService.getCategorias(2, 100).subscribe(categoriasSegunda => {
+    //       this.categorias = categoriasPrimeiraPagina.concat(categoriasSegunda.data)
+    //       this.items[1].items = this.categoriaService.categoriasParaMenu(this.categorias)
+    //       localStorage.setItem('categoriasMenu', JSON.stringify(this.items[1].items))
+    //     });
+    //   });
+    // }
 
     if(localStorage.getItem('cart')) {
       this.products = JSON.parse(localStorage.getItem('cart') || '{}');
