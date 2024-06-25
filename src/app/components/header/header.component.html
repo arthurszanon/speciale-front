@@ -9,7 +9,7 @@
           <div style="display:flex; align-items:center">
             <app-buscar/>
             <i class="pi pi-shopping-cart" style="font-size: 20px; margin-right: 20px; cursor: pointer;" pBadge [value]="products.length" severity="danger" (click)="showDialog()"></i>
-            <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" [style]="{'color': '#222222', 'marginRight':'10px'}" routerLink="/login"/>
+            <p-button icon="pi pi-user" [rounded]="true" [text]="true" [style]="{'color': '#222222', 'marginRight':'10px'}" routerLink="/login" [outlined]="true" [severity]="isLogged ? 'success' : 'danger'"/>
           </div>
         </ng-template>
     </p-menubar>

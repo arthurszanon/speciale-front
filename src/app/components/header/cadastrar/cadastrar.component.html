@@ -1,5 +1,6 @@
 <div class="box">
-    <div class="text-box">
+  <p-toast />
+  <div class="text-box">
       <h2>Faça Seu Cadastro</h2>
     </div>
     <div class="container shadow-7">
@@ -7,47 +8,54 @@
       <div class="card  justify-content-center">
         <p>E-Mail</p>
         <p-floatLabel >
-            <input id="email" type="text" pInputText ngModel=""  />
+            <input id="email" type="text" pInputText [(ngModel)]="user.email"  />
+        </p-floatLabel>
+        <p>Nome</p>
+        <p-floatLabel >
+          <input id="nome" type="text" pInputText [(ngModel)]="user.nome"  />
         </p-floatLabel>
         <p>Telefone</p>
         <div class="card flex justify-content-center">
-            <p-inputMask 
-                mask="(99) 9 9999-9999" 
-                [(ngModel)]="telefone" 
+            <p-inputMask
+                mask="(99) 9 9999-9999"
+                [(ngModel)]="user.telefone"
                 placeholder="99999" />
         </div>
         <p>CEP</p>
         <div class="card flex justify-content-center">
-            <p-inputMask 
-                mask="99.999-999" 
-                [(ngModel)]="cep" 
+            <p-inputMask
+                mask="99.999-999"
+                [(ngModel)]="user.cep"
                 placeholder="99-999999" />
         </div>
         <p>Rua</p>
         <div class="card flex justify-content-center">
             <p-floatLabel >
-                <input id="rua" type="text" pInputText ngModel=""  />
+                <input id="rua" type="text" pInputText [(ngModel)]="user.rua"  />
             </p-floatLabel>
         </div>
 
         <p>Número</p>
         <div class="card flex justify-content-center">
             <p-floatLabel >
-                <input id="numero" type="text" pInputText ngModel=""  />
+                <input id="numero" type="number" pInputText [(ngModel)]="user.numero"  />
             </p-floatLabel>
         </div>
         <p>Senha</p>
         <div class="card justify-content-center">
-          <p-password ngModel="" />
+          <p-password [(ngModel)]="user.senha" />
         </div>
         <p>Confirmar Senha</p>
         <div class="card justify-content-center">
-          <p-password ngModel="" />
+          <p-password [(ngModel)]="user.confirmarSenha" />
         </div>
           <div class="card flex j">
             <p-button label="Voltar" severity="danger" ngClass="cancelar" [style]="{'backgroundColor':'#000000', 'borderColor':'transparent', 'fontSize': '15px', 'marginRight': '25px'}"/>
-            <p-button label="Cadastrar " [style]="{'backgroundColor':'var(--cor-01)','borderColor':'transparent'}"/>
+            <p-button label="Cadastrar " [style]="{'backgroundColor':'var(--cor-01)','borderColor':'transparent'}" (click)="cadastrar()"/>
         </div>
     </div>
+    </div>
+    <div class="progress-spinner" *ngIf="loading">
+      <p-progressSpinner></p-progressSpinner>
     </div>
   </div>

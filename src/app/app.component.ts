@@ -6,6 +6,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 
 @Component({
@@ -17,12 +19,14 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     FormsModule,
     ReactiveFormsModule,
-    FooterComponent,
+    FooterComponent, ToastModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [],
+  providers: [MessageService],
 })
 export class AppComponent {
   title = 'speciale';
+  constructor(private messageService: MessageService) {
+  }
 }
