@@ -16,42 +16,50 @@ import {ButtonModule} from 'primeng/button';
 import {ProdutosService} from '../../services/produtos.service';
 import {FormsModule} from '@angular/forms';
 import {MessageModule} from 'primeng/message';
+import { BuscarComponent } from "./buscar/buscar.component";
+import { LoginComponent } from './login/login.component';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    MenubarModule,
-    CommonModule,
-    HttpClientModule,
-    IconFieldModule,
-    InputIconModule,
-    InputTextModule,
-    BadgeModule,
-    DialogModule,
-    DataViewModule,
-    ButtonModule,
-    FormsModule,
-    MessageModule,
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
-  providers: [ CategoriaService, ProdutosService ]
+    selector: 'app-header',
+    standalone: true,
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css',
+    providers: [CategoriaService, ProdutosService],
+    imports: [
+        MenubarModule,
+        CommonModule,
+        HttpClientModule,
+        IconFieldModule,
+        InputIconModule,
+        InputTextModule,
+        BadgeModule,
+        DialogModule,
+        DataViewModule,
+        ButtonModule,
+        FormsModule,
+        MessageModule,
+        BuscarComponent,
+        LoginComponent,
+    ]
 })
 export class HeaderComponent implements OnInit{
-  categorias: categorias[] = [];
+  categorias: categorias[] = [];  
   items: MenuItem[] = [
     {
-      'label': 'Home',
-      'icon': 'pi pi-fw pi-home',
-      'routerLink': ['/']
-    },
-    {
-      'label': 'produtos',
-      'icon': 'pi pi-fw pi-shopping-cart',
+      'label': 'Produtos',
       'items': [],
       'routerLink': ['/produtos'],
-    },
+    }, 
+    {
+      'label': 'Login',
+      'items': [],
+      'routerLink': ['/login'],
+    }, 
+    {
+      'label': 'Cadastrar',
+      'items': [],
+      'routerLink': ['/cadastrar'],
+    }, 
   ];
   cartVisible: boolean = false;
   loginVisible: boolean = false;

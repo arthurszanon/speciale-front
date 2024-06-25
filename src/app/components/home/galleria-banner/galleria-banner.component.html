@@ -1,18 +1,42 @@
-<div class="card">
-    <p-galleria 
+<div class="card banners">
+    <div class="banner-1 shadow-7 border-round-lg">
+        <p-galleria 
         [value]="images" 
         [autoPlay]="true" 
         [circular]="true" 
         [responsiveOptions]="responsiveOptions" 
-        [numVisible]="5" 
-        [containerStyle]="{ 'max-width': '100%' }"> 
+        [numVisible]="2" 
+        [style]="{'marginBottom':'10px'}"
+        [ngClass]="{'left': true, 'shadow-7': true}"
+        [containerStyle]="{ 'max-width': '300px' }"> 
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
                 <div class="grid grid-nogutter justify-content-center">
-                    <img [src]="item.thumbnailImageSrc" style="width: 100px;"/>
+                    <img [src]="item.thumbnailImageSrc" style="width: 70px;"/>
                 </div>
             </ng-template>
     </p-galleria>
+    </div>
+    <div class="banner-2 shadow-7">
+        <p-galleria 
+        [value]="images2" 
+        [autoPlay]="true" 
+        [circular]="true" 
+        [responsiveOptions]="responsiveOptions" 
+        [numVisible]="2" 
+        [style]="{'marginBottom':'10px'}"
+            [ngClass]="{'right': true}"
+        [containerStyle]="{ 'max-width': '300px' }"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" style="width: 70px;"/>
+                </div>
+            </ng-template>
+    </p-galleria>
+    </div>
 </div>

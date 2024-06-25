@@ -1,0 +1,22 @@
+<div class="box">
+  <div class="text-box">
+    <h2>Faça Login</h2>
+  </div>
+  <div class="container shadow-7">
+    <span class="pi pi-user" style="font-size: 35px; margin-bottom: 25px;"></span>
+    <div class="card  justify-content-center">
+      <p>E-Mail</p>
+      <p-floatLabel >
+          <input id="email" type="text" pInputText ngModel="email"  />
+      </p-floatLabel>
+      <div class="card justify-content-center">
+        <p>Senha</p>
+        <p-password ngModel="senha" [feedback]="false" />
+        <div class="card flex j">
+          <p-button label="Voltar" severity="danger" ngClass="cancelar" [style]="{'backgroundColor':'#000000', 'borderColor':'transparent', 'fontSize': '15px', 'marginRight': '25px'}"/>
+          <p-button label="Entrar " [style]="{'backgroundColor':'var(--cor-01)','borderColor':'transparent'}"/>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

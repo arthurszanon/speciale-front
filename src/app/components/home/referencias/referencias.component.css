@@ -1,0 +1,48 @@
+.box{
+    display: ruby-text;
+    justify-content: left;
+    text-align: left;
+    margin-left: 70px;
+}
+
+.container{
+    align-items: center;
+    text-align: left;
+}
+
+.container h3{
+    font-weight: 300;
+    font-size: 17px;
+}
+
+.container h3 span{
+    font-weight: 500;
+}
+
+i{
+    width: 60px;
+    color: var(--cor-01)
+}
+
+.container-1{
+    width: 230px;
+}
+
+.container-2{
+    width: 230px;
+}
+
+.container-3{
+    width: 280px;
+}
+
+.container-4{
+    width: 230px;
+}
+
+@media screen and (min-width:1050px) {
+    .box{
+        text-align: center;
+        margin-left: 0%;
+    }
+}

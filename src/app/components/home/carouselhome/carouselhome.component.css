@@ -1,0 +1,18 @@
+.titulo h2{
+    margin-top: 140px;
+    font-weight: 300;
+    font-size: 30px;
+    text-align: center  ;
+}
+
+.marcas{
+    max-width: 1000px;
+    display: block;
+    margin: 0 auto;  
+}
+
+@media screen and (min-width:1200px) {
+    .titulo h2{
+        margin-top: 210px;
+    }
+}
