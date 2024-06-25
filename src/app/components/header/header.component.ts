@@ -18,13 +18,15 @@ import {FormsModule} from '@angular/forms';
 import {MessageModule} from 'primeng/message';
 import { BuscarComponent } from "./buscar/buscar.component";
 import { LoginComponent } from './login/login.component';
+import {AutoFocusModule} from 'primeng/autofocus';
+import {OrcamentoService} from '../../services/orcamento.service';
 
 @Component({
     selector: 'app-header',
     standalone: true,
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
-    providers: [CategoriaService, ProdutosService],
+    providers: [CategoriaService, ProdutosService, OrcamentoService],
     imports: [
         MenubarModule,
         CommonModule,
@@ -40,26 +42,27 @@ import { LoginComponent } from './login/login.component';
         MessageModule,
         BuscarComponent,
         LoginComponent,
+        AutoFocusModule,
     ]
 })
 export class HeaderComponent implements OnInit{
-  categorias: categorias[] = [];  
+  categorias: categorias[] = [];
   items: MenuItem[] = [
     {
       'label': 'Produtos',
       'items': [],
       'routerLink': ['/produtos'],
-    }, 
+    },
     {
       'label': 'Login',
       'items': [],
       'routerLink': ['/login'],
-    }, 
+    },
     {
       'label': 'Cadastrar',
       'items': [],
       'routerLink': ['/cadastrar'],
-    }, 
+    },
   ];
   cartVisible: boolean = false;
   loginVisible: boolean = false;
