@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import {PanelMenuModule} from 'primeng/panelmenu';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import {CategoriaService} from '../../../services/categoria.service';
 import {categorias} from '../../../interfaces/categorias';
 import {produto} from '../../../interfaces/produto';
 import {ProdutosService} from '../../../services/produtos.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {ToastModule} from 'primeng/toast';
 
 @Component({
   selector: 'app-products-list-page',
@@ -21,7 +22,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     NgForOf,
     CurrencyPipe,
     NgIf,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToastModule
   ],
   providers: [CategoriaService, ProdutosService],
   templateUrl: './products-list-page.component.html',
@@ -43,7 +45,8 @@ export class ProductsListPageComponent {
 
   loading: boolean = true;
 
-  constructor(private categoriaService: CategoriaService, private produtosService: ProdutosService, private route: ActivatedRoute) {
+  constructor(private categoriaService: CategoriaService, private produtosService: ProdutosService, private route: ActivatedRoute,
+              private messageService: MessageService, private router: Router) {
   }
 
   ngOnInit(){
@@ -122,5 +125,8 @@ export class ProductsListPageComponent {
       imagemURL: product.imagemURL
     }
     this.produtosService.addToCart(this.carrinhoPayload);
+    this.messageService.add({severity:'success', summary: 'Produto adicionado ao carrinho', detail: 'O produto foi adicionado ao carrinho com sucesso'});
+
   }
+
 }

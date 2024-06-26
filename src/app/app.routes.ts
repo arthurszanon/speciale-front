@@ -5,6 +5,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import {ProductsListPageComponent} from './components/products/products-list-page/products-list-page.component';
 import { LoginComponent } from './components/header/login/login.component';
 import { CadastrarComponent } from './components/header/cadastrar/cadastrar.component';
+import { HeaderComponent } from './components/header/header.component';
 
 export const routes: Routes = [
   {
@@ -38,5 +39,9 @@ export const routes: Routes = [
   {
     path: 'cadastrar',
     component: CadastrarComponent
+  },
+  {
+    path:'header',
+    component: HeaderComponent
   }
 ];

@@ -1,4 +1,5 @@
 <div class="card header">
+  <p-toast />
     <p-menubar [model]="items"  >
         <ng-template pTemplate="start" >
             <a href="/" >
@@ -44,6 +45,7 @@
                       <span *ngIf="isLogged" class="text-l font-semibold">{{ isLogged ? (item.preco | currency: 'BRL') : 'R$--,--'  }}</span>
                     </div>
                   </div>
+                  <p-button icon="pi pi-trash" [severity]="'danger'" (click)="removeItem(item)" class="p-button-danger" [style]="{marginTop: '10px'}"></p-button>
                 </div>
               </div>
             </div>
@@ -54,9 +56,9 @@
     <ng-template pTemplate="footer" style="margin-top:20px">
       <div class="flex justify-content-between" [style]="{marginTop:'20px'}">
         <p-button icon="pi pi-times" label="Limpar Carrinho"
-                  severity="danger" (click)="clearCart()"></p-button>
+                  severity="danger" (click)="clearCart()" [disabled]="products.length <= 0"></p-button>
         <p-button icon="pi pi-check" label="Finalizar Orçamento" pAutoFocus [autofocus]="true"
-                  severity="success" (click)="enviarOrcamento()" [loading]="orcamentoLoading"></p-button>
+                  severity="success" (click)="enviarOrcamento()" [loading]="orcamentoLoading" [disabled]="products.length <= 0"></p-button>
       </div>
     </ng-template>
   </p-dialog>
