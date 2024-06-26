@@ -23,16 +23,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /*Spinner*/
 .progress-spinner {
-  position: fixed;
   z-index: 999;
   height: 2em;
   width: 2em;
   overflow: show;
   margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
 }
 
 /* Transparent Overlay */
@@ -47,3 +42,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: rgba(0,0,0,0.53);
 }
 
+.main-content {
+  margin-left: 60px; /* Ajuste conforme necessário */
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.sidebar.expanded ~ .main-content {
+  margin-left: 250px; /* Ajuste conforme necessário */
+}
+
+body{
+  padding-top: 50px;
+}

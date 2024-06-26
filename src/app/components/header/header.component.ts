@@ -21,6 +21,9 @@ import { LoginComponent } from './login/login.component';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {OrcamentoService} from '../../services/orcamento.service';
 import {saveAs} from 'file-saver';
+import { SidebarModule } from 'primeng/sidebar';
+import {PanelMenuModule} from 'primeng/panelmenu';
+
 
 @Component({
     selector: 'app-header',
@@ -30,7 +33,9 @@ import {saveAs} from 'file-saver';
     providers: [CategoriaService, ProdutosService, OrcamentoService],
     imports: [
         MenubarModule,
+        SidebarModule,
         CommonModule,
+        PanelMenuModule,
         HttpClientModule,
         IconFieldModule,
         InputIconModule,
@@ -54,12 +59,12 @@ export class HeaderComponent implements OnInit{
   items: MenuItem[] = [
     {
       'label': 'Home',
-      'icon': 'pi pi-fw pi-home',
+      'icon': '',
       'routerLink': ['/']
     },
     {
-      'label': 'produtos',
-      'icon': 'pi pi-fw pi-shopping-cart',
+      'label': 'Produtos',
+      'icon': '',
       'routerLink': ['/produtos'],
     },
     {
@@ -221,4 +226,13 @@ export class HeaderComponent implements OnInit{
       this.orcamentoLoading = false;
     });
   }
-}
+
+
+
+  sidebarVisible: boolean = false;
+  loading: boolean = true;
+  categoria: any;
+  produtos: produto[] = [];
+
+  
+  }

@@ -1,14 +1,9 @@
 <div class="produtos-page">
-  <div class="categorias-sidenav">
-    <div class="categorias-sidenav-menu">
-      <h2 style="text-align: center">Navegue Por <br> Categoria</h2>
-      <p-panelMenu [model]="items" [style]="{'width':'250px'}"></p-panelMenu>
-    </div>
-  </div>
+<app-sidebar/>
   <div class="produtos-container">
     <h1>{{categoria?.descricao}}</h1>
     <div class="produtos-cards" >
-      <p-card *ngFor="let produto of produtos" class="produto-card" [header]="produto.nome" [subheader]="isLogged ? ((produto.preco | currency:'BRL') || '') : ''" [style]="{ width: '300px' }">
+      <p-card *ngFor="let produto of produtos" class="produto-card" [header]="produto.nome" [subheader]="isLogged ? ((produto.preco | currency:'BRL') || '') : ''" [style]="{ width: '250px' }">
         <ng-template pTemplate="header">
           <img alt="Card" [src]="produto.imagemURL || '../../../assets/No-Image-Placeholder.png'" [pTooltip]="produto.nome"/>
         </ng-template>

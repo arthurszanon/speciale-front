@@ -1,0 +1,10 @@
+<div class="sidebar" [ngClass]="{'expanded': isExpanded}">
+  <div class="sidebar-content">
+    <div class="profile">
+      <p-button label="" (click)="toggleSidebar()" icon="pi pi-bars" [style]="{'marginTop':'20px', 'background':'var(--cor-01)', 'borderColor':'#000000'}"/>
+    </div>
+    <div class="middle">
+      <p-panelMenu [model]="items" [style]="{'width':'250px'}"></p-panelMenu>
+    </div>
+  </div>
+</div>

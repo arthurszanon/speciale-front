@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {PanelMenuModule} from 'primeng/panelmenu';
-import {MenuItem} from 'primeng/api';
-import {CategoriaService} from '../../../services/categoria.service';
-import {categorias} from '../../../interfaces/categorias';
-import {produto} from '../../../interfaces/produto';
-import {ProdutosService} from '../../../services/produtos.service';
-import {ActivatedRoute} from '@angular/router';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuItem } from 'primeng/api/menuitem';
+import { categorias } from '../../../interfaces/categorias';
+import { produto } from '../../../interfaces/produto';
+import { CategoriaService } from '../../../services/categoria.service';
+import { ProdutosService } from '../../../services/produtos.service';
+import { ActivatedRoute } from '@angular/router';
 import { NgClass } from '@angular/common';
-import { SidebarComponent } from '../../header/sidebar/sidebar.component';
 
 @Component({
-  selector: 'app-products-list-page',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [
     PanelMenuModule,
@@ -23,29 +23,16 @@ import { SidebarComponent } from '../../header/sidebar/sidebar.component';
     NgForOf,
     CurrencyPipe,
     NgIf,
-    ProgressSpinnerModule,
     NgClass,
-    SidebarComponent
+    ProgressSpinnerModule,
+    SidebarModule
   ],
-  providers: [CategoriaService, ProdutosService],
-  templateUrl: './products-list-page.component.html',
-  styleUrl: './products-list-page.component.css'
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.css',
+  providers:[CategoriaService, ProdutosService]
 })
-export class ProductsListPageComponent {
 
-
-  isExpanded: boolean = false;
-
-  menuItems = [
-    { label: 'Home', icon: 'home' },
-    { label: 'Profile', icon: 'user' },
-    { label: 'Settings', icon: 'cog' },
-    { label: 'Logout', icon: 'sign-out' }
-  ];
-
-  toggleSidebar() {
-    this.isExpanded = !this.isExpanded;
-  }
+export class SidebarComponent {
 
   items: MenuItem[] = [];
   categorias: categorias[] = [];
@@ -53,14 +40,9 @@ export class ProductsListPageComponent {
   categoria: any;
   produtos: produto[] = [];
 
-  carrinhoPayload: any;
-  quantidadeProdutos: number = 1;
-
-
-
-  isLogged: boolean = localStorage.getItem('logged') === 'true'
-
   loading: boolean = true;
+
+
 
   constructor(private categoriaService: CategoriaService, private produtosService: ProdutosService, private route: ActivatedRoute) {
   }
@@ -117,15 +99,9 @@ export class ProductsListPageComponent {
 
   }
 
-  addCarrinho(product: produto) {
-    this.carrinhoPayload = {
-      id: product.id,
-      nome: product.nome,
-      descricao: product.descricao,
-      preco: product.preco,
-      quantidade: this.quantidadeProdutos,
-      imagemURL: product.imagemURL
-    }
-    this.produtosService.addToCart(this.carrinhoPayload);
+  isExpanded: boolean = false;
+
+  toggleSidebar() {
+    this.isExpanded = !this.isExpanded;
   }
 }
