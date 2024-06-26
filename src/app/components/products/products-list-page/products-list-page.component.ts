@@ -37,6 +37,7 @@ export class ProductsListPageComponent {
 
   carrinhoPayload: any;
   quantidadeProdutos: number = 1;
+  nome: string = '';
 
   isLogged: boolean = localStorage.getItem('logged') === 'true'
 
@@ -53,8 +54,8 @@ export class ProductsListPageComponent {
         const categoriasPrimeiraPagina = categoriasPrimeira.data
         this.categoriaService.getCategorias(2, 100).subscribe(categoriasSegunda => {
           this.categorias = categoriasPrimeiraPagina.concat(categoriasSegunda.data)
-          this.items[1].items = this.categoriaService.categoriasParaMenu(this.categorias)
-          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[1].items))
+          this.items = this.categoriaService.categoriasParaMenu(this.categorias)
+          localStorage.setItem('categoriasMenu', JSON.stringify(this.items))
         });
       });
     }
@@ -62,6 +63,8 @@ export class ProductsListPageComponent {
     this.route.params.subscribe(params => {
       this.loading = true;
       this.categoria = params['categoria'];
+      this.nome = params['nome'];
+
       if(this.categoria){
         this.produtosService.getProdutosByCategoria(this.categoria).subscribe(produtos => {
           this.produtos = produtos.data;
@@ -76,6 +79,18 @@ export class ProductsListPageComponent {
         });
         this.categoriaService.getCategoriaById(params['categoria']).subscribe(categoria => {
           this.categoria = categoria.data;
+        });
+      }else if(this.nome){
+        this.produtosService.getProdutosByNome(this.nome).subscribe(produtos => {
+          this.produtos = produtos.data;
+          this.loading = false;
+          this.produtos.map(produto => {
+            if(produto.nome){
+              produto.nome = produto.nome?.length > 32 ? produto.nome.substring(0, 20) + '...' : produto.nome;
+              return produto;
+            }
+            return produto;
+          });
         });
       }else{
         this.produtosService.getProdutos().subscribe(produtos => {

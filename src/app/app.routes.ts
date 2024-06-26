@@ -24,12 +24,16 @@ export const routes: Routes = [
     component: ProductsListPageComponent
   },
   {
+    path: 'produtos/nome/:nome',
+    component: ProductsListPageComponent
+  },
+  {
       path:'checkout',
       component: CheckoutComponent
   },
   {
     path: 'login',
-    component: LoginComponent 
+    component: LoginComponent
   },
   {
     path: 'cadastrar',
