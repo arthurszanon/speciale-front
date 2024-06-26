@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import {PanelMenuModule} from 'primeng/panelmenu';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import {CategoriaService} from '../../../services/categoria.service';
 import {categorias} from '../../../interfaces/categorias';
 import {produto} from '../../../interfaces/produto';
 import {ProdutosService} from '../../../services/produtos.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { NgClass } from '@angular/common';
 import { SidebarComponent } from '../../header/sidebar/sidebar.component';
+import {ToastModule} from 'primeng/toast';
 
 @Component({
   selector: 'app-products-list-page',
@@ -25,7 +26,8 @@ import { SidebarComponent } from '../../header/sidebar/sidebar.component';
     NgIf,
     ProgressSpinnerModule,
     NgClass,
-    SidebarComponent
+    SidebarComponent,
+    ToastModule
   ],
   providers: [CategoriaService, ProdutosService],
   templateUrl: './products-list-page.component.html',
@@ -55,14 +57,14 @@ export class ProductsListPageComponent {
 
   carrinhoPayload: any;
   quantidadeProdutos: number = 1;
-
-
+  nome: string = '';
 
   isLogged: boolean = localStorage.getItem('logged') === 'true'
 
   loading: boolean = true;
 
-  constructor(private categoriaService: CategoriaService, private produtosService: ProdutosService, private route: ActivatedRoute) {
+  constructor(private categoriaService: CategoriaService, private produtosService: ProdutosService, private route: ActivatedRoute,
+              private messageService: MessageService, private router: Router) {
   }
 
   ngOnInit(){
@@ -73,8 +75,8 @@ export class ProductsListPageComponent {
         const categoriasPrimeiraPagina = categoriasPrimeira.data
         this.categoriaService.getCategorias(2, 100).subscribe(categoriasSegunda => {
           this.categorias = categoriasPrimeiraPagina.concat(categoriasSegunda.data)
-          this.items[1].items = this.categoriaService.categoriasParaMenu(this.categorias)
-          localStorage.setItem('categoriasMenu', JSON.stringify(this.items[1].items))
+          this.items = this.categoriaService.categoriasParaMenu(this.categorias)
+          localStorage.setItem('categoriasMenu', JSON.stringify(this.items))
         });
       });
     }
@@ -82,6 +84,8 @@ export class ProductsListPageComponent {
     this.route.params.subscribe(params => {
       this.loading = true;
       this.categoria = params['categoria'];
+      this.nome = params['nome'];
+
       if(this.categoria){
         this.produtosService.getProdutosByCategoria(this.categoria).subscribe(produtos => {
           this.produtos = produtos.data;
@@ -96,6 +100,18 @@ export class ProductsListPageComponent {
         });
         this.categoriaService.getCategoriaById(params['categoria']).subscribe(categoria => {
           this.categoria = categoria.data;
+        });
+      }else if(this.nome){
+        this.produtosService.getProdutosByNome(this.nome).subscribe(produtos => {
+          this.produtos = produtos.data;
+          this.loading = false;
+          this.produtos.map(produto => {
+            if(produto.nome){
+              produto.nome = produto.nome?.length > 32 ? produto.nome.substring(0, 20) + '...' : produto.nome;
+              return produto;
+            }
+            return produto;
+          });
         });
       }else{
         this.produtosService.getProdutos().subscribe(produtos => {
@@ -127,5 +143,8 @@ export class ProductsListPageComponent {
       imagemURL: product.imagemURL
     }
     this.produtosService.addToCart(this.carrinhoPayload);
+    this.messageService.add({severity:'success', summary: 'Produto adicionado ao carrinho', detail: 'O produto foi adicionado ao carrinho com sucesso'});
+
   }
+
 }

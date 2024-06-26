@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaService } from '../../services/categoria.service';
 import { categorias } from '../../interfaces/categorias';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
@@ -24,6 +24,8 @@ import {saveAs} from 'file-saver';
 import { SidebarModule } from 'primeng/sidebar';
 import {PanelMenuModule} from 'primeng/panelmenu';
 
+import {Router} from '@angular/router';
+import {ToastModule} from 'primeng/toast';
 
 @Component({
     selector: 'app-header',
@@ -31,25 +33,26 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
     providers: [CategoriaService, ProdutosService, OrcamentoService],
-    imports: [
-        MenubarModule,
-        SidebarModule,
-        CommonModule,
-        PanelMenuModule,
-        HttpClientModule,
-        IconFieldModule,
-        InputIconModule,
-        InputTextModule,
-        BadgeModule,
-        DialogModule,
-        DataViewModule,
-        ButtonModule,
-        FormsModule,
-        MessageModule,
-        BuscarComponent,
-        LoginComponent,
-        AutoFocusModule,
-    ]
+  imports: [
+    MenubarModule,
+    SidebarModule,
+    CommonModule,
+    PanelMenuModule,
+    HttpClientModule,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+    BadgeModule,
+    DialogModule,
+    DataViewModule,
+    ButtonModule,
+    FormsModule,
+    MessageModule,
+    BuscarComponent,
+    LoginComponent,
+    AutoFocusModule,
+    ToastModule,
+  ]
 })
 export class HeaderComponent implements OnInit{
   categorias: categorias[] = [];
@@ -101,7 +104,8 @@ export class HeaderComponent implements OnInit{
 
   isLogged = localStorage.getItem('logged') === 'true';
 
-  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService, private orcamentoService: OrcamentoService) {}
+  constructor (private categoriaService: CategoriaService, private produtoService: ProdutosService, private orcamentoService: OrcamentoService,
+               private router: Router, private messageService: MessageService) {}
 
   ngOnInit() {
     // if(localStorage.getItem('categoriasMenu')){
@@ -150,57 +154,12 @@ export class HeaderComponent implements OnInit{
     }
   }
 
-  register(){
-    if(!localStorage.getItem('users')) {
-      localStorage.setItem('users', '[]')
-    }
-    const users = JSON.parse(localStorage.getItem('users') || '{}')
-    if(this.registerPayload.senha === this.registerPayload.confirmarSenha) {
-      users.push(this.registerPayload)
-      localStorage.setItem('users', JSON.stringify(users))
-      localStorage.setItem('user', JSON.stringify(this.registerPayload))
-      localStorage.setItem('logged', 'true')
-      this.registerVisible = false;
-    }
-  }
-
-  registrarClick() {
-    this.loginVisible = false;
-    this.registerVisible = true;
-  }
-
-  loginClick() {
-    this.registerVisible = false;
-    this.loginError = false;
-    if (this.isLogged) {
-      this.isLogged =  localStorage.getItem('logged') === 'true';
-      this.registerPayload = JSON.parse(localStorage.getItem('user') || '{}')
-      this.registerVisible = true;
-    }else{
-      this.loginVisible = true;
-    }
-  }
-
-  logout() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('logged');
-    this.registerPayload = {
-      nome: '',
-      email: '',
-      cep: '',
-      telefone: '',
-      senha: '',
-      confirmarSenha: ''
-    }
-    this.isLogged = false;
-    this.registerVisible = false;
-    this.loginVisible = true;
-  }
-
   enviarOrcamento() {
     if(!this.isLogged){
-      this.loginClick();
-      return
+      this.cartVisible = false;
+      this.router.navigate(['/login']);
+      this.messageService.add({severity:'error', summary: 'Erro', detail: 'Você precisa estar logado para enviar um orçamento'});
+      return;
     }
 
     const user = JSON.parse(localStorage.getItem('user') || '{}')
@@ -227,12 +186,8 @@ export class HeaderComponent implements OnInit{
     });
   }
 
-
-
-  sidebarVisible: boolean = false;
-  loading: boolean = true;
-  categoria: any;
-  produtos: produto[] = [];
-
-  
+  removeItem(product: produto) {
+    this.produtoService.removeFromCart(product);
+    this.products = this.produtoService.getCart();
   }
+}

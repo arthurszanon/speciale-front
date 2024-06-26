@@ -11,6 +11,8 @@ import {FormsModule} from '@angular/forms';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {catchError} from 'rxjs';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 
 
@@ -27,6 +29,7 @@ import {catchError} from 'rxjs';
     FormsModule,
     InputNumberModule,
     ProgressSpinnerModule,
+    ToastModule,
   ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
@@ -63,7 +66,8 @@ export class ProductPageComponent implements OnInit{
     }
   ];
 
-  constructor(private produtosService: ProdutosService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private produtosService: ProdutosService, private route: ActivatedRoute, private router: Router,
+              private messageService: MessageService) {}
 
   ngOnInit() {
 
@@ -93,6 +97,7 @@ export class ProductPageComponent implements OnInit{
       imagemURL: this.product.imagemURL
     }
     this.produtosService.addToCart(this.carrinhoPayload);
+    this.messageService.add({severity:'success', summary:'Carrinho', detail:'Produto adicionado ao carrinho'});
   }
 
 

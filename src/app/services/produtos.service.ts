@@ -50,6 +50,13 @@ export class ProdutosService {
     return this.http.get<any>(this.url, {params});
   }
 
+  getProdutosByNome(nome: string) {
+    const params = {
+      nome
+    }
+    return this.http.get<any>(`${this.url}/nome/${nome}`, {params});
+  }
+
   getProdutoById(id: string) {
     return this.http.get<any>(`${this.url}/${id}`);
   }

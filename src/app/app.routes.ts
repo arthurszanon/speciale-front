@@ -6,6 +6,7 @@ import {ProductsListPageComponent} from './components/products/products-list-pag
 import { LoginComponent } from './components/header/login/login.component';
 import { CadastrarComponent } from './components/header/cadastrar/cadastrar.component';
 import { SidebarComponent } from './components/header/sidebar/sidebar.component';
+import { HeaderComponent } from './components/header/header.component';
 
 export const routes: Routes = [
   {
@@ -25,12 +26,16 @@ export const routes: Routes = [
     component: ProductsListPageComponent
   },
   {
+    path: 'produtos/nome/:nome',
+    component: ProductsListPageComponent
+  },
+  {
       path:'checkout',
       component: CheckoutComponent
   },
   {
     path: 'login',
-    component: LoginComponent 
+    component: LoginComponent
   },
   {
     path: 'cadastrar',
@@ -39,5 +44,9 @@ export const routes: Routes = [
   {
     path: 'categorias',
     component: SidebarComponent
+  },
+  {
+    path:'header',
+    component: HeaderComponent
   }
 ];
